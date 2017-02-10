@@ -8,10 +8,11 @@ def run():
     lunchtime, leaving_time = get_lunch_time()
     print(leaving_time.strftime("%I:%M:%S"))
     token = os.environ["SLACK_API_TOKEN"]
-    #members = get_group_members(token)
-    for member in ("U03A4RWP9"):
+    members = get_group_members(token)
+    for member in members:
         send_slack_reminder(token, "meet in the lobby in two minutes ({0})"
-            .format(leaving_time.strftime("%I:%M:%S")),"1486711200", "U03A4RWP9")
+            .format(lunchtime.strftime("%I:%M:%S")),"at {0}"
+            .format(leaving_time.strftime("%I:%M:%S"))), member)
 
 def get_lunch_time():
     #timedelta requires a datetime, we don't care about date
